@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.orderapp.ui.theme.LittleLemonColor
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,64 +90,24 @@ fun Profile(navController: NavController) {
                 )
             }
             Column(
-                modifier = Modifier.fillMaxWidth().padding(10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(onClick = {
-                    PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
-                    navController.navigate(Onboarding.route)
-
-                }) {
+                Button(
+                    onClick = {
+                        PreferenceManager.getDefaultSharedPreferences(context).edit().clear()
+                            .apply();
+                        navController.navigate(Onboarding.route) {
+                            popUpTo(Onboarding.route)
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(LittleLemonColor.yellow)
+                ) {
                     Text(text = "Log out")
                 }
             }
-
-
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ScaffoldWithTopBar() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.logo),
-                            contentDescription = "Logo",
-                        )
-                    }
-
-                },
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Filled.ArrowBack, "backIcon")
-                    }
-                },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White,
-                ),
-            )
-        }, content = {
-            Column(
-                modifier = Modifier
-                    .padding(it)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Content of the page",
-                    fontSize = 30.sp,
-                    color = Color.White
-                )
-            }
-        })
 }

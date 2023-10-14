@@ -18,39 +18,58 @@ fun NavigationComposable() {
     val email = sp.getString("email", null) // Second parameter is the default value.
 
     val navController = rememberNavController()
-    if (firstName == null && lastName == null && email == null) {
-        NavHost(
-            navController = navController,
-            startDestination = Onboarding.route
-        ) {
-            composable(Onboarding.route) {
-                Onboarding(navController = navController)
-            }
-            composable(Home.route) {
-                Home(navController = navController)
-            }
-            composable(Profile.route) {
-                Profile(navController = navController)
-            }
+    val startDestination = if (firstName == null && lastName == null && email == null) {
+        Onboarding.route
+    } else {
+        Home.route
+    }
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
+        composable(Onboarding.route) {
+            Onboarding(navController = navController)
+        }
+        composable(Home.route) {
+            Home(navController = navController)
+        }
+        composable(Profile.route) {
+            Profile(navController = navController)
+        }
+    }
+//    if (firstName == null && lastName == null && email == null) {
+//        NavHost(
+//            navController = navController,
+//            startDestination = Onboarding.route
+//        ) {
+//            composable(Onboarding.route) {
+//                Onboarding(navController = navController)
+//            }
+//            composable(Home.route) {
+//                Home(navController = navController)
+//            }
+//            composable(Profile.route) {
+//                Profile(navController = navController)
+//            }
+////            composable(Onboarding.route){
+////                Onboarding(navController = navController)
+////            }
+//        }
+//    } else {
+//        NavHost(
+//            navController = navController,
+//            startDestination = Home.route
+//        ) {
+//            composable(Home.route) {
+//                Home(navController = navController)
+//            }
+//            composable(Profile.route) {
+//                Profile(navController = navController)
+//            }
 //            composable(Onboarding.route){
 //                Onboarding(navController = navController)
 //            }
-        }
-    } else {
-        NavHost(
-            navController = navController,
-            startDestination = Home.route
-        ) {
-            composable(Home.route) {
-                Home(navController = navController)
-            }
-            composable(Profile.route) {
-                Profile(navController = navController)
-            }
-            composable(Onboarding.route){
-                Onboarding(navController = navController)
-            }
-        }
-
-    }
+//        }
+//
+//    }
 }
