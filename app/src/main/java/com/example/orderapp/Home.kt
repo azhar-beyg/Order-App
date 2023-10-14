@@ -313,8 +313,7 @@ private fun LowerPanel(items: List<MenuItemRoom>) {
 
                 Card(
                     onClick = {
-                        //  Log.d("AAA", "Click ${menu.id}")
-                        //  navController?.navigate(DishDetails.route + "/${dish.id}")
+                        
                     }, modifier = Modifier
                         .fillMaxWidth()
                         .padding(5.dp),
